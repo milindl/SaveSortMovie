@@ -134,6 +134,7 @@ flycheck_*.el
 
 # keyfiles
 KEY
+CLIENT_DATA
 
 # GroupFiles
 
