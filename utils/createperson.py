@@ -86,6 +86,18 @@ def list_persons(gname):
             line[:-1] for line in gfile.readlines()
             ]
     
+def person_details(person_id, gname):
+    '''
+    Method to return person details as JSON
+    '''
+    url = 'https://api.projectoxford.ai/face/v1.0/persongroups/' + gname + '/persons/' + person_id
+    headers = {
+        'Ocp-Apim-Subscription-Key' : KEY,
+        'Content-Type': 'application/json',
+    }
+    res = requests.get(url, headers=headers)
+    return res.json()
+    
 def add_faces(person_id, gname, img_list):
     '''
     Method to add a set of faces to a person
@@ -157,6 +169,7 @@ def main():
     ./createperson.py istrain GROUPNAME
     ./createperson.py deleteperson PERSONID GROUPNAME
     ./createperson.py listpersons GROUPNAME
+    ./creatperson.py persondetails PERSONID GROUPNAME
     '''
     if len(sys.argv) <= 2:
         print(usage)
@@ -179,6 +192,13 @@ def main():
         else:
             print(usage)
 
+    elif sys.argv[1] == 'persondetails':
+        if len(sys.argv) == 4:
+            cp = person_details(sys.argv[2], sys.argv[3])
+            print(cp)
+        else:
+            print(usage)
+            
     elif sys.argv[1] == 'deleteperson':
         if len(sys.argv) == 4:
             cp = delete_person(sys.argv[2], sys.argv[3])

@@ -9,6 +9,12 @@ class ImgurPipeline:
     ImgurPipeline is used to pipe any image thru imgur
     '''
     def __init__(self, img_path, client, path_type = 'path'):
+        '''
+        __init__ usage:
+        img path can be a url or an os path
+        client is an imgurpython.ImgurClient
+        path_type decides if img_path is ospath(default) or url
+        '''
         self.client = client
         self.img = None
         if path_type == 'url':
@@ -26,11 +32,19 @@ class ImgurPipeline:
         self.useable = True
         
     def get_link(self):
+        '''
+        get_link
+        Returns image link if available
+        Else throws error
+        '''
         if self.useable:
             return self.img['link']
         raise ValueError('IO after deleting image')
 
     def delete(self):
+        '''
+        Delete image after use
+        '''
         self.client.delete_image(self.img['deletehash'])
         self.useable = False
         
@@ -43,7 +57,7 @@ if __name__=='__main__':
         c_id = lines[0].split(':')[1][:-1]
         c_secret = lines[1].split(':')[1][:-1]
     i_client = ImgurClient(c_id, c_secret)
-    ip = ImgurPipeline('/home/milind/Pictures/Wallpapers/wallhaven-108326.jpg', i_client)
+    ip = ImgurPipeline('/home/path/path/path', i_client)
     print(ip.get_link())
     a = raw_input('Delete image?')
     ip.delete()
