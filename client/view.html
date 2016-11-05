@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <title> View Video | [Video Title]</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="styles/view.css" rel="stylesheet">
+    <link href="styles/body.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav>
+      <ul>
+	<li id="upload" id="upload"><a href="upload">Upload</a></li>
+	<li><a href="search">Search</a></li>
+	<li><a href="random">Random</a></li>
+      </ul>
+    </nav>
+    <header>
+      <h1>[Video Title Which Maybe Really Long and Even Multiline]</h1>
+    </header>
+    <main>
+      <video controls>
+	<source src="../utils/videoplayback.mp4" type="video/mp4">
+      </video>
+      <section id="videodata">
+	<ul>
+	  <li>Actors: [Actors]</li>
+	  <li id="tags">Tags:
+	    <a href="Search?query=&tag=tag1"> [Tag1] </a>
+	    <a href="Search?query=&tag=tag2"> [Tag2] </a>
+	    <a href="Search?query=&tag=tag3"> [Tag3] </a>
+	  </li>
+	  <li>Length: [HH:MM]</li>
+	</ul>
+      </section>
+    </main>
+    <aside id="related">
+      <dl>
+	<a href="ViewVideo?id=">
+	  <dt>[Related Video Title]</dt>
+	  <dd>[HH:MM]</dd>
+	</a>
+	<a href="ViewVideo?id=">
+	  <dt>[Related Video Title]</dt>
+	  <dd>[HH:MM]</dd>
+	</a>
+	<a href="ViewVideo?id=">
+	  <dt>[Related Video Title]</dt>
+	  <dd>[HH:MM]</dd>
+	</a>
+      </dl>
+    </aside>
+  </body>
+</html>

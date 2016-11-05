@@ -1,0 +1,55 @@
+/*
+CSS file for the view page
+*/
+
+main {
+    padding: 5vmin 0;
+    display: block;
+    width: 100%;
+    background: #222;
+    text-align:center;
+}
+video {
+    max-width: 960px;
+    border:1px solid white;
+}
+section#videodata {
+    text-align:left;
+    color:white;
+}
+section#videodata ul {
+    padding: 1em;
+    list-style-type:none;
+}
+section#videodata ul li a {
+    text-decoration: none;
+    color:#0095dd;
+}
+
+aside {
+    width: 100%;
+    display:block;
+    margin: 1em 0px;
+    background-color:#222;
+}
+aside dl {
+    
+
+}
+aside dl a {
+    display: inline-block;
+    margin:0px;
+    padding: 1em 0;
+    width: 32%;
+    text-align:center;
+    text-decoration: none;
+    color: white;
+		   
+}
+aside dl a:hover {
+    text-decoration: underline;
+}
+aside dl dd {
+    margin: 0px;
+}
+

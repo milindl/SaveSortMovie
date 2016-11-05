@@ -1,0 +1,66 @@
+/*
+CSS file for general body directives
+*/
+@import url('https://fonts.googleapis.com/css?family=Raleway|Open+Sans');
+body {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0px;
+    background-color: #333;
+    font-family: Open Sans, sans
+}
+
+header {
+    color: #ddd;
+    font-family: Raleway, sans;
+}
+
+nav {
+    
+}
+nav ul {
+    list-style-type: none;
+    padding: 0px;
+}
+nav ul li {
+    float:right;
+    display: inline-block;
+    width: 5em;
+    text-align:center;
+    padding: 2vmin;
+    background-color:#222;
+    border-radius: 0.5em;
+    margin: 2vmin;
+}
+nav ul li:hover {
+    background-color: #09d;
+}
+nav ul li#upload {
+    border: 1px solid white;
+}
+nav ul li a {
+    text-decoration: none;
+    color: #ddd;
+}
+
+@media screen and (max-width:960px) {
+    nav ul li {
+	width: 32vw;
+	float:none;
+	border-radius: 0px;
+	margin:0;
+	padding: 0px;
+	padding-bottom: 0.5em;
+	padding-top: 0.5em;
+    }
+    nav ul {
+	background-color: #222;
+    }
+    nav ul li:hover {
+	background: inherit;
+    }
+    nav ul li#upload {
+	border:0;
+    }
+
+}
