@@ -27,7 +27,7 @@ def identify_person(gname, img_path, path_type='path'):
     path_type = 'url' or 'path' depending on above
     '''
     # First prepare image
-    i_client = ImgurClient(CLIENT_ID, CLIENT_DATA)
+    i_client = ImgurClient(CLIENT_ID, CLIENT_SECRET)
     i_pipe = ImgurPipeline(img_path, i_client, path_type)
 
     # Prepare and send Face Detect request
