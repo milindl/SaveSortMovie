@@ -53,7 +53,7 @@ def save_frames(frames, img_name_generator, img_format = 'jpg'):
         filename = img_name_generator(i)
         cv2.imwrite(filename + '.' + img_format, frame)
         i += 1
-        filenames.append(filename)
+        filenames.append(filename + '.' + img_format)
     return filenames
 
 # Testing methods follow

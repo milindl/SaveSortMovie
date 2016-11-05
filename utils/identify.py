@@ -1,6 +1,7 @@
 '''
 identify.py
 method indentify_person
+method frameset_identify_person
 test methods
 variable CLIENT_ID
 variable CLIENT_SECRET
@@ -82,7 +83,36 @@ def identify_person(gname, img_path, path_type='path'):
         ) for item in data if len(item['candidates']) == 1 ]
     return faces_found
 
+def frameset_identify_person(filepaths, gname):
+    '''
+    frameset_identify_person(filepaths, gname) : { personId:summation_of_score }
+    filepaths : [ filepaths for images ]
+    gname : group name
+    '''
+    persons_found = {}
+    for filepath in filepaths:
+        faces_in_fp = identify_person(gname, filepath, path_type='path')
+        print("Here uptill now. Moving on to " + filepath)
+        for elem in faces_in_fp:
+            person_id = elem[0]
+            confidence = elem[1]
+            if person_id not in persons_found:
+                persons_found[person_id] = 0
+            persons_found[person_id] += confidence
+            print persons_found
+    return persons_found
+
+def __basic_namegen(i):
+    return 'imgbasic%03d'%i
 if __name__ == '__main__':
     # Testing
-    f = identify_person('actors', 'http://media.vanityfair.com/photos/55b51427fff2c16856a73070/master/w_790,c_limit/will-smith-jay-z-emmett-till-hbo.jpg', path_type='url')
-    print(f)
+    import videoutil as vu
+    face_frames = []
+    for frame in vu.video_pipe('./videoplayback.mp4', {'outoften':0.075}):
+        isfaces = vu.face_presence(frame)
+        if isfaces:
+            face_frames.append(frame)
+    filepaths = vu.save_frames(face_frames, __basic_namegen)
+    print(filepaths)
+    p_f = frameset_identify_person(filepaths, 'actors')
+    print(p_f)
