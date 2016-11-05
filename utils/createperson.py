@@ -1,21 +1,31 @@
 #!/usr/bin/env python2
 '''
+createperson.py
 This is a CLI interface to create a person
-This also deals with the initial task of person group creation
-createperson create NAME
+method create_pgroup
+method create_person
+method delete_person
+method list_persons
+method person_details
+method add_faces
+method is_train
+method train
+variable KEY
 '''
 import json
 import requests
-KEYFILE = open('KEY')
+__KEYFILE = open('KEY')
 KEY = ''
-for line in KEYFILE:
+for line in __KEYFILE:
     KEY = line
     break
-KEYFILE.close()
+__KEYFILE.close()
 
 def create_pgroup(name, userdata=''):
     '''
-    Method to create person group
+    create_pgroup(name, userdata='') : Microsoft response
+    name : name of new group
+    userdata = optional associated data
     '''
     url = 'https://api.projectoxford.ai/face/v1.0/persongroups/' + name
     headers = {
@@ -28,7 +38,10 @@ def create_pgroup(name, userdata=''):
 
 def create_person(name, gname, user_data=None):
     '''
-    Method to create a new person
+    create_person(name, gname, user_data=None) : personId
+    name : person name
+    gname : group name (previously created group must be used)
+    user_data : optional user data
     '''
     url = 'https://api.projectoxford.ai/face/v1.0/persongroups/' + gname + '/persons'
     headers = {
@@ -54,7 +67,9 @@ def create_person(name, gname, user_data=None):
 
 def delete_person(person_id, gname):
     '''
-    Method to delete a person from a group
+    delete_person(person_id, gname) : boolean
+    person_id : personId of the person to be removed
+    gname: group name
     '''
     headers = {
     'Content-Type': 'application/json',
@@ -74,12 +89,14 @@ def delete_person(person_id, gname):
     else:
         print(res.json())
         raise ValueError('Bad argument')
-    return 'Removed successfully'
+    return True
 
 def list_persons(gname):
     '''
-    Method to list all people in a group. 
-    Fetches data locally, does NOT sync.
+    list_persons() : []
+    gname : group name
+    NOTE: fetches data from local file.
+    Any changes to group via other applications will not reflect here.
     '''
     with open(gname+'.group') as gfile:
         return [
@@ -88,7 +105,9 @@ def list_persons(gname):
     
 def person_details(person_id, gname):
     '''
-    Method to return person details as JSON
+    person_details(person_id, gname) : JSON
+    person_id : personId
+    gname : group name
     '''
     url = 'https://api.projectoxford.ai/face/v1.0/persongroups/' + gname + '/persons/' + person_id
     headers = {
@@ -100,7 +119,11 @@ def person_details(person_id, gname):
     
 def add_faces(person_id, gname, img_list):
     '''
-    Method to add a set of faces to a person
+    add_faces(person_id, gname, img_list) : boolean
+    person_id : personId
+    gname : group name
+    img_list : [ image urls ]
+    Adds images to a person, however, still requires training to use
     '''
     headers = {
     'Content-Type': 'application/json',
@@ -117,11 +140,13 @@ def add_faces(person_id, gname, img_list):
         else:
             print(res.json())
             raise ValueError('Bad argument')
-    return 'Completed successfully. Consider training'
+    return True
 
 def train(gname):
     '''
-    Method to train a group
+    train(gname) : None
+    gname : group name
+    Trains a group. Needs to be called after adding faces
     '''
     url = 'https://api.projectoxford.ai/face/v1.0/persongroups/' + gname + '/train'
     headers = {
@@ -130,14 +155,16 @@ def train(gname):
     }
     res = requests.post(url, headers=headers)
     if res.status_code == 202:
-        return ''
+        return
     else:
         print(res.json())
         raise ValueError('Bad argument')
 
 def is_train(gname):
     '''
-    Method to see if a network has finished training
+    is_train(gname) : boolean
+    gname : group name
+    Method to see if a group is still training or has been trained after train()
     '''
     url = 'https://api.projectoxford.ai/face/v1.0/persongroups/' + gname + '/training'
     headers = {
@@ -158,7 +185,8 @@ def is_train(gname):
 
 def main():
     '''
-    Main function (entry point)
+    main()
+    Testing method
     '''
     import sys
     usage = '''

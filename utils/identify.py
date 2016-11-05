@@ -1,22 +1,30 @@
 '''
-Face identifier (given a binary image known to contain exactly one face
+identify.py
+method indentify_person
+test methods
+variable CLIENT_ID
+variable CLIENT_SECRET
+variable KEY
 '''
 from imgurpipeline import ImgurPipeline
 from imgurpython import ImgurClient
 
 import json
 import requests
-KEYFILE = open('KEY')
-KEY = KEYFILE.readlines()[0]
-KEYFILE.close()
-CLIENT_DATA = open('CLIENT_DATA')
-lines = CLIENT_DATA.readlines()
-CLIENT_ID = lines[0].split(':')[1][:-1]
-CLIENT_SECRET = lines[1].split(':')[1][:-1]
+__KEYFILE = open('KEY')
+KEY = __KEYFILE.readlines()[0]
+__KEYFILE.close()
+__CLIENT_DATA = open('CLIENT_DATA')
+__lines = __CLIENT_DATA.readlines()
+CLIENT_ID = __lines[0].split(':')[1][:-1]
+CLIENT_SECRET = __lines[1].split(':')[1][:-1]
 
 def identify_person(gname, img_path, path_type='path'):
     '''
-    Method to return personId of recognized faces in img
+    identify_person(gname, img_path, path_type) : [(personId,confidence)]
+    gname : group in which to look for person
+    img_path : url or filepath to image
+    path_type = 'url' or 'path' depending on above
     '''
     # First prepare image
     i_client = ImgurClient(CLIENT_ID, CLIENT_DATA)

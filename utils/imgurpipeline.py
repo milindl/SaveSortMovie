@@ -1,19 +1,38 @@
+
 '''
-Imgur pipeline to convert any local images to imgur
-Then use the links to do necessary operations
+imgurpipeline.py
+class ImgurPipeline
+test methods
 '''
 from imgurpython import ImgurClient
 
+
 class ImgurPipeline:
     '''
-    ImgurPipeline is used to pipe any image thru imgur
+    Imgur pipeline to convert any local images to imgur
+    Then use the links to do necessary operations.
+    Delete the image after use
+    class ImgurPipeline:
+
+    Properties: 
+    - client : ImgurClient used to communicate with imgur
+    - img : JSON containing output of upload() of client
+    - useable : boolean deciding whether img is still useable
+
+    Methods: 
+    __init__(img_path, client, path_type)
+    get_link()
+    delete()
+
     '''
+
     def __init__(self, img_path, client, path_type = 'path'):
         '''
-        __init__ usage:
-        img path can be a url or an os path
-        client is an imgurpython.ImgurClient
-        path_type decides if img_path is ospath(default) or url
+        __init__(img_path, client, path_type = 'path')
+        img_path : URL or filepath to image
+        client : pre-made ImgurClient
+        path_type : 'url' or 'path' depending on img_path
+
         '''
         self.client = client
         self.img = None
@@ -33,9 +52,9 @@ class ImgurPipeline:
         
     def get_link(self):
         '''
-        get_link
-        Returns image link if available
-        Else throws error
+        get_link() : string 
+        Returns link of image we are piping
+        If image is deleted, raises ValueError
         '''
         if self.useable:
             return self.img['link']
@@ -43,7 +62,8 @@ class ImgurPipeline:
 
     def delete(self):
         '''
-        Delete image after use
+        delete()
+        Delete image after use.
         '''
         self.client.delete_image(self.img['deletehash'])
         self.useable = False
