@@ -1,11 +1,13 @@
 <!doctype html>
-<html>
+<html ng-app = "videoApp">
   <head>
     <title> View Video | [Video Title]</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="styles/view.css" rel="stylesheet">
     <link href="styles/body.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="js/video.js"></script>
   </head>
   <body>
     <nav>
@@ -15,22 +17,32 @@
 	<li><a href="random">Random</a></li>
       </ul>
     </nav>
-    <header>
-      <h1>[Video Title Which Maybe Really Long and Even Multiline]</h1>
+    <header ng-controller="ViewVideo as viewvideo">
+      <h1>{{viewvideo.video.title}}</h1>
     </header>
-    <main>
-      <video controls>
-	<source src="../utils/videoplayback.mp4" type="video/mp4">
+    <main ng-controller = "ViewVideo as viewvideo">
+      <video controls src="{{viewvideo.video.path }}" type="video/mp4">
       </video>
       <section id="videodata">
 	<ul>
-	  <li>Actors: [Actors]</li>
-	  <li id="tags">Tags:
-	    <a href="Search?query=&tag=tag1"> [Tag1] </a>
-	    <a href="Search?query=&tag=tag2"> [Tag2] </a>
-	    <a href="Search?query=&tag=tag3"> [Tag3] </a>
+	  <li>Actors:
+	    <span ng-repeat="actor in viewvideo.video.actors">
+	      {{actor}}
+	    </span>
 	  </li>
-	  <li>Length: [HH:MM]</li>
+	  <li id="tags">Tags:
+	    <a
+	      ng-repeat="tag in viewvideo.video.tags"
+	      ng-href="Search?query=&tag={{tag}}">
+	      #{{tag}}
+	    </a>
+	  </li>
+	  <li>Length: {{
+	    (viewvideo.video.length/60) | number:0
+	    }}:{{
+	    (viewvideo.video.length%60)
+	    }}
+	  </li>
 	</ul>
       </section>
     </main>
