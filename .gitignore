@@ -139,3 +139,6 @@ CLIENT_DATA
 # GroupFiles
 
 *.group
+
+# VideoFiles
+*.mp4
