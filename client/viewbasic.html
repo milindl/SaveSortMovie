@@ -1,0 +1,49 @@
+<div class="view-box" ng-init = "vc.init(
+				 vc.routeParams.id,
+				 vc);">
+
+  <main class = "view_video">
+    <h3> {{ vc.videoData.title }} </h3>
+    <video type = "video/mp4"
+	   ng-src = "{{vc.videoData.filepath}}"
+	   controls>
+    </video>
+    <section id="videodata">
+      <ul>
+	<li>Actors:
+	  <span ng-repeat="actor in vc.videoData.actors">
+	    {{actor}}
+	  </span>
+	</li>
+	<li id="tags">Tags:
+	  <a
+	    ng-repeat="tag in vc.videoData.tags"
+	    ng-href="/search?query=&tag={{tag}}">
+	    #{{tag}}
+	  </a>
+	</li>
+	<li>Length:
+	  {{ vc.videoData.length/60 | number:0 }} :
+	  {{ vc.videoData.length%60 | number: 0}}
+	</li>
+      </ul>
+    </section>
+  </main>
+  <aside id="related">
+    <dl>
+      <a href="/viewvideo?id=">
+	<dt>[Related Video Title]</dt>
+	<dd>[HH:MM]</dd>
+      </a>
+      <a href="/viewvideo?id=">
+	<dt>[Related Video Title]</dt>
+	<dd>[HH:MM]</dd>
+      </a>
+      <a href="/viewvideo?id=">
+	<dt>[Related Video Title]</dt>
+	<dd>[HH:MM]</dd>
+      </a>
+    </dl>
+  </aside>
+
+</div>

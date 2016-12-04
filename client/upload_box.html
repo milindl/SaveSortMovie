@@ -1,0 +1,30 @@
+<div>
+  <main>
+    <section id="videoupload">
+      <form name = "upload_form"
+	    ref = "upload_form"
+	    action = "/upload_video"
+	    method = "POST"
+	    encType = "multipart/form-data">
+      <label>Title<br>
+	<input type = "text"
+	       placeholder = "Title-short & descriptive"
+	       name = "title">
+      </label>
+      <label>Tags<br>
+	<input type="text"
+	       placeholder = "Tags-separate with space"
+	       name = "tags">
+      </label>
+      <label>Video File<br>
+	<input type = "file"
+	       name = "vid">
+      </label>
+      <input type = "submit"
+	     ng-click = ""
+	     value="Upload">
+      	     
+      </form>
+    </section>
+  </main>
+</div>

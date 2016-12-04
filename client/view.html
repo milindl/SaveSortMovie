@@ -5,62 +5,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="styles/view.css" rel="stylesheet">
+    <link href="styles/upload.css" rel="stylesheet">
     <link href="styles/body.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.js"></script>
     <script src="js/video.js"></script>
   </head>
   <body>
     <nav>
       <ul>
-	<li id="upload" id="upload"><a href="upload">Upload</a></li>
-	<li><a href="search">Search</a></li>
+	<li id="upload" id="upload"><a href="/#!/upload">Upload</a></li>
+	<li><a href="/#!/search">Search</a></li>
 	<li><a href="random">Random</a></li>
       </ul>
     </nav>
-    <header ng-controller="ViewVideo as viewvideo">
-      <h1>{{viewvideo.video.title}}</h1>
+    <header>
+      <h1>SaveSortMovie</h1>
+      <br>
     </header>
-    <main ng-controller = "ViewVideo as viewvideo">
-      <video controls src="{{viewvideo.video.path }}" type="video/mp4">
-      </video>
-      <section id="videodata">
-	<ul>
-	  <li>Actors:
-	    <span ng-repeat="actor in viewvideo.video.actors">
-	      {{actor}}
-	    </span>
-	  </li>
-	  <li id="tags">Tags:
-	    <a
-	      ng-repeat="tag in viewvideo.video.tags"
-	      ng-href="Search?query=&tag={{tag}}">
-	      #{{tag}}
-	    </a>
-	  </li>
-	  <li>Length: {{
-	    (viewvideo.video.length/60) | number:0
-	    }}:{{
-	    (viewvideo.video.length%60)
-	    }}
-	  </li>
-	</ul>
-      </section>
-    </main>
-    <aside id="related">
-      <dl>
-	<a href="ViewVideo?id=">
-	  <dt>[Related Video Title]</dt>
-	  <dd>[HH:MM]</dd>
-	</a>
-	<a href="ViewVideo?id=">
-	  <dt>[Related Video Title]</dt>
-	  <dd>[HH:MM]</dd>
-	</a>
-	<a href="ViewVideo?id=">
-	  <dt>[Related Video Title]</dt>
-	  <dd>[HH:MM]</dd>
-	</a>
-      </dl>
-    </aside>
+    <div ng-view></div>
   </body>
 </html>

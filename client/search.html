@@ -1,0 +1,31 @@
+<main>
+  <div class = "search" ng-init = "sc.init(sc)">
+    <section>
+      <h4>Search Filters</h4>
+    </section>
+    <section ng-repeat = "video in sc.videos">
+      <a href = "/#!/view/{{video.id}}">
+	<div>
+	  <h5>{{video.title}}</h5>
+	  <div>Actors: {{ video.actors.join(" ") }}</div>
+	  <div>Length: {{ video.length/60 | number:0}}:{{video.length%60 | number:0}}</div>
+	</div>
+      </a>
+    </section>
+    <style>
+      .search {
+
+      }
+      .search section {
+      padding: 10px;
+      }
+      .search a {
+      color: white;
+      text-decoration: none;
+      }
+      .search a:hover h5 {
+      text-decoration: underline;
+      }
+    </style>
+  </div>
+</main>
