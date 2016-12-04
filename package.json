@@ -1,0 +1,28 @@
+{
+  "name": "savesortmovie",
+  "version": "1.0.0",
+  "description": "Save and sort videos as per actors",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/milindl/SaveSortMovie.git"
+  },
+  "author": "Milind L",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/milindl/SaveSortMovie/issues"
+  },
+  "homepage": "https://github.com/milindl/SaveSortMovie#readme",
+  "dependencies": {
+    "blueimp-md5": "^2.6.0",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "get-video-duration": "^0.1.0",
+    "multer": "^1.2.0",
+    "serve-static": "^1.11.1"
+  }
+}
