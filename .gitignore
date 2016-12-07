@@ -1,3 +1,4 @@
+*.html
 *.jpg
 node_modules/
 *angular*
