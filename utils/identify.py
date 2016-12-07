@@ -1,6 +1,6 @@
 '''
 identify.py
-method indentify_person
+method identify_person
 method frameset_identify_person
 test methods
 variable CLIENT_ID
@@ -9,16 +9,19 @@ variable KEY
 '''
 from imgurpipeline import ImgurPipeline
 from imgurpython import ImgurClient
+from cloudinarypipeline import CloudinaryPipeline
 
 import json
 import requests
+
 __KEYFILE = open('KEY')
 KEY = __KEYFILE.readlines()[0]
 __KEYFILE.close()
-__CLIENT_DATA = open('CLIENT_DATA')
-__lines = __CLIENT_DATA.readlines()
-CLIENT_ID = __lines[0].split(':')[1][:-1]
-CLIENT_SECRET = __lines[1].split(':')[1][:-1]
+__CLOUDINARY_DATA = open('CLOUDINARY_DATA')
+__lines = __CLOUDINARY_DATA.readlines()
+API_KEY = __lines[0].split(':')[1][:-1]
+API_SECRET = __lines[1].split(':')[1][:-1]
+CLOUD_NAME = __lines[2].split(':')[1][:-1]
 
 def identify_person(gname, img_path, path_type='path'):
     '''
@@ -28,8 +31,11 @@ def identify_person(gname, img_path, path_type='path'):
     path_type = 'url' or 'path' depending on above
     '''
     # First prepare image
-    i_client = ImgurClient(CLIENT_ID, CLIENT_SECRET)
-    i_pipe = ImgurPipeline(img_path, i_client, path_type)
+    i_pipe = CloudinaryPipeline(img_path,
+                                {'cloud_name': CLOUD_NAME,
+                                 'api_key': API_KEY,
+                                 'api_secret': API_SECRET},
+                                path_type)
 
     # Prepare and send Face Detect request
     fd_url = 'https://api.projectoxford.ai/face/v1.0/detect?returnFaceId=true'
@@ -51,6 +57,10 @@ def identify_person(gname, img_path, path_type='path'):
         raise ValueError('Bad argument')
     fdetected = fd_res.json()
     f_ids = [face['faceId'] for face in fdetected]
+    
+    # If OpenCV detected a Face but Microsoft cannot
+    if len(f_ids) == 0:
+        return []
 
     # Delete imgur image
     i_pipe.delete()
@@ -91,8 +101,8 @@ def frameset_identify_person(filepaths, gname):
     '''
     persons_found = {}
     for filepath in filepaths:
+        print("Processing " + filepath)
         faces_in_fp = identify_person(gname, filepath, path_type='path')
-        print("Here uptill now. Moving on to " + filepath)
         for elem in faces_in_fp:
             person_id = elem[0]
             confidence = elem[1]
@@ -104,15 +114,23 @@ def frameset_identify_person(filepaths, gname):
 
 def __basic_namegen(i):
     return 'imgbasic%03d'%i
+
+
 if __name__ == '__main__':
     # Testing
+    import sys
     import videoutil as vu
+    import createperson
     face_frames = []
-    for frame in vu.video_pipe('./videoplayback.mp4', {'outoften':0.075}):
+    print("Starting basic OpenCV processing")
+    for frame in vu.video_pipe(sys.argv[1], {'outoften':0.1}):
         isfaces = vu.face_presence(frame)
         if isfaces:
             face_frames.append(frame)
     filepaths = vu.save_frames(face_frames, __basic_namegen)
-    print(filepaths)
+    print("Saved OpenCV processed frames")
+    print("Starting Face Detect - Face Identify cycle")
     p_f = frameset_identify_person(filepaths, 'actors')
     print(p_f)
+    for key in p_f.keys():
+        print(createperson.person_details(key, 'actors'))

@@ -1,4 +1,9 @@
+*.jpg
 node_modules/
+*angular*
+*.bak
+*.xml
+*.avi
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -137,7 +142,7 @@ flycheck_*.el
 # keyfiles
 KEY
 CLIENT_DATA
-
+CLOUDINARY_DATA
 # GroupFiles
 
 *.group
