@@ -7,8 +7,7 @@ variable CLIENT_ID
 variable CLIENT_SECRET
 variable KEY
 '''
-from imgurpipeline import ImgurPipeline
-from imgurpython import ImgurClient
+
 from cloudinarypipeline import CloudinaryPipeline
 
 import json
