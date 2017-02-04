@@ -1,4 +1,6 @@
 # SaveSortMovie #
+Note: I wrote the client in a slapdash way to learn Angular. I need to implement it in Angular2 when I get the time.
+The Python backend should basically be OK.
 
 An ongoing project providing a web-client and a server for viewing and uploading videos, and a python back-end that automatically categorizes those videos based on the actor(s).
 
